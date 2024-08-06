@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<h1>Dias para examen</h1>
+    <div class="container">
+        <div>
+            <p id="dia">99</p>
+            <span>Dias</span>
+        </div>
+        <div>
+            <p id="hora">23</p>
+            <span>Horas</span>
+        </div>
+        <div>
+            <p id="minutos">12</p>
+            <span>Minutos</span>
+        </div>
+        <div>
+            <p  id="segundos">12</p>
+            <span>Segundos</span>
+        </div>
+    </div>
+    <script>
+        let segundos = document.getElementById("segundos");
+        let dia = document.getElementById("dia");
+        let hora = document.getElementById("hora");
+        let minutos = document.getElementById("minutos");
+        
+        let examen = '5 Aug 2024 18:10';
+        let intervalId;
+        
+        function contador() {
+            let examenDate = new Date(examen);
+            let limiteDate = new Date();
+        
+            let totalSeconds = (examenDate - limiteDate) / 1000;
+        
+            if (totalSeconds <= 0) {
+                clearInterval(intervalId);
+                Swal.fire({
+                    title: "Se logro",
+                    text: "Ztitabro!",
+                    icon: "success"
+                  });
+                dia.innerHTML = 0;
+                hora.innerHTML = 0;
+                minutos.innerHTML = 0;
+                segundos.innerHTML = 0;
+                return; //para que no siga ejecutando el codigo
+            }
+        
+            let diaCalc = Math.floor(totalSeconds / 3600 / 24);
+            let horaCalc = Math.floor(totalSeconds / 3600) % 24;
+            let minutosCalc = Math.floor(totalSeconds / 60) % 60;
+            let segundosCalc = Math.floor(totalSeconds % 60);
+        
+            dia.innerHTML = diaCalc;
+            hora.innerHTML = horaCalc;
+            minutos.innerHTML = minutosCalc;
+            segundos.innerHTML = segundosCalc;
+        }
+        
+        contador();
+        intervalId = setInterval(contador, 1000);
+    </script>
+</body>
+</html>
